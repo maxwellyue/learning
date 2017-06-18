@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seentao.datacenter.modules.bus.dao.ProdActiveLogDao">
+  <resultMap id="BaseResultMap" type="ProdActiveLog">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="origin_user_id" jdbcType="VARCHAR" property="originUserId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="login_time" jdbcType="TIMESTAMP" property="loginTime" />
+    <result column="terminal_type" jdbcType="BIT" property="terminalType" />
+    <result column="origin_customer_id" jdbcType="VARCHAR" property="originCustomerId" />
+    <result column="customer_name" jdbcType="VARCHAR" property="customerName" />
+    <result column="product_id" jdbcType="VARCHAR" property="productId" />
+    <result column="is_synchronized" jdbcType="BIT" property="isSynchronized" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, origin_user_id, user_name, login_time, terminal_type, origin_customer_id, customer_name, product_id, 
+    is_synchronized
+  </sql>
+
+  <select id="get" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from prod_active_log
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="delete" parameterType="java.lang.Integer">
+    delete from prod_active_log
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="add" parameterType="ProdActiveLog" useGeneratedKeys="true" keyProperty="id">
+    insert into prod_active_log (origin_user_id, user_name,
+      login_time, terminal_type, origin_customer_id,
+      customer_name, product_id,
+      is_synchronized)
+    values (#{originUserId,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR},
+      #{loginTime,jdbcType=TIMESTAMP}, #{terminalType,jdbcType=BIT}, #{originCustomerId,jdbcType=VARCHAR},
+      #{customerName,jdbcType=VARCHAR}, #{productId,jdbcType=VARCHAR},
+      #{isSynchronized,jdbcType=BIT})
+  </insert>
+
+  <update id="update" parameterType="ProdActiveLog">
+    update prod_active_log
+    <set>
+      <if test="originUserId != null">
+        origin_user_id = #{originUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="loginTime != null">
+        login_time = #{loginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="terminalType != null">
+        terminal_type = #{terminalType,jdbcType=BIT},
+      </if>
+      <if test="originCustomerId != null">
+        origin_customer_id = #{originCustomerId,jdbcType=VARCHAR},
+      </if>
+      <if test="customerName != null">
+        customer_name = #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="productId != null">
+        product_id = #{productId,jdbcType=VARCHAR},
+      </if>
+      <if test="isSynchronized != null">
+        is_synchronized = #{isSynchronized,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+</mapper>

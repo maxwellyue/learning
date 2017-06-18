@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seentao.datacenter.modules.bus.dao.ProdCustomerDao">
+  <resultMap id="BaseResultMap" type="Customer">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="business_license_no" jdbcType="VARCHAR" property="businessLicenseNo" />
+    <result column="organization_no" jdbcType="VARCHAR" property="organizationNo" />
+    <result column="tax_registry_no" jdbcType="VARCHAR" property="taxRegistryNo" />
+    <result column="scale" jdbcType="VARCHAR" property="scale" />
+    <result column="unified_social_credit_code" jdbcType="VARCHAR" property="unifiedSocialCreditCode" />
+    <result column="location" jdbcType="VARCHAR" property="location" />
+    <result column="addr" jdbcType="VARCHAR" property="addr" />
+    <result column="post_code" jdbcType="VARCHAR" property="postCode" />
+    <result column="user_number" jdbcType="VARCHAR" property="userNumber" />
+    <result column="valiadate" jdbcType="CHAR" property="valiadate" />
+    <result column="customer_type" jdbcType="VARCHAR" property="customerType" />
+    <result column="terminal_type" jdbcType="BIT" property="terminalType" />
+    <result column="is_synchronized" jdbcType="BIT" property="isSynchronized" />
+    <result column="from" jdbcType="VARCHAR" property="from" />
+    <result column="parent_name" jdbcType="VARCHAR" property="parentName" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, name, create_time, business_license_no, organization_no, tax_registry_no, scale,
+    unified_social_credit_code, location, addr, post_code, user_number, valiadate, customer_type, 
+    terminal_type, is_synchronized, from, parent_name
+  </sql>
+
+  <select id="get" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from prod_customer
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="delete" parameterType="java.lang.String">
+    delete from prod_customer
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+
+  <insert id="add" parameterType="Customer">
+    insert into prod_customer (id, name, create_time,
+      business_license_no, organization_no, tax_registry_no, 
+      scale, unified_social_credit_code, location, 
+      addr, post_code, user_number, 
+      valiadate, customer_type, terminal_type, 
+      is_synchronized, from, parent_name
+      )
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, NOW(),
+      #{businessLicenseNo,jdbcType=VARCHAR}, #{organizationNo,jdbcType=VARCHAR}, #{taxRegistryNo,jdbcType=VARCHAR}, 
+      #{scale,jdbcType=VARCHAR}, #{unifiedSocialCreditCode,jdbcType=VARCHAR}, #{location,jdbcType=VARCHAR}, 
+      #{addr,jdbcType=VARCHAR}, #{postCode,jdbcType=VARCHAR}, #{userNumber,jdbcType=VARCHAR}, 
+      #{valiadate,jdbcType=CHAR}, #{customerType,jdbcType=VARCHAR}, #{terminalType,jdbcType=BIT}, 
+      #{isSynchronized,jdbcType=BIT}, #{from,jdbcType=VARCHAR}, #{parentName,jdbcType=VARCHAR}
+      )
+  </insert>
+
+
+  <update id="update" parameterType="Customer">
+    update prod_customer
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="businessLicenseNo != null">
+        business_license_no = #{businessLicenseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationNo != null">
+        organization_no = #{organizationNo,jdbcType=VARCHAR},
+      </if>
+      <if test="taxRegistryNo != null">
+        tax_registry_no = #{taxRegistryNo,jdbcType=VARCHAR},
+      </if>
+      <if test="scale != null">
+        scale = #{scale,jdbcType=VARCHAR},
+      </if>
+      <if test="unifiedSocialCreditCode != null">
+        unified_social_credit_code = #{unifiedSocialCreditCode,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null">
+        location = #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="addr != null">
+        addr = #{addr,jdbcType=VARCHAR},
+      </if>
+      <if test="postCode != null">
+        post_code = #{postCode,jdbcType=VARCHAR},
+      </if>
+      <if test="userNumber != null">
+        user_number = #{userNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="valiadate != null">
+        valiadate = #{valiadate,jdbcType=CHAR},
+      </if>
+      <if test="customerType != null">
+        customer_type = #{customerType,jdbcType=VARCHAR},
+      </if>
+      <if test="terminalType != null">
+        terminal_type = #{terminalType,jdbcType=BIT},
+      </if>
+      <if test="isSynchronized != null">
+        is_synchronized = #{isSynchronized,jdbcType=BIT},
+      </if>
+      <if test="from != null">
+        from = #{from,jdbcType=VARCHAR},
+      </if>
+      <if test="parentName != null">
+        parent_name = #{parentName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

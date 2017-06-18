@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jee="http://www.springframework.org/schema/jee"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+            http://www.springframework.org/schema/jee
+            http://www.springframework.org/schema/jee/spring-jee-4.0.xsd
+            http://www.springframework.org/schema/aop
+            http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context-4.0.xsd
+            http://www.springframework.org/schema/tx
+            http://www.springframework.org/schema/tx/spring-tx-4.0.xsd"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop">
+    <description>Shiro 配置</description>
+
+    <!--&lt;!&ndash; 缓存管理 &ndash;&gt;
+    <bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+        <property name="cacheManager" ref="cacheManagerFactory" />
+        <property name="cacheManagerConfigFile" value="classpath:ehcache.xml" />
+    </bean>
+
+    &lt;!&ndash; Shiro安全管理器 &ndash;&gt;
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <property name="realm" ref="customRealm"></property>
+        <property name="cacheManager" ref="cacheManager"></property>
+    </bean>
+
+    &lt;!&ndash; 自定义Realm &ndash;&gt;
+    <bean id="customRealm" class="cn.zifangsky.security.CustomRealm" />
+
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <property name="securityManager" ref="securityManager" />
+        <property name="loginUrl" value="/user/user/login.html" />
+        &lt;!&ndash; <property name="successUrl" value="/user/index.html" /> &ndash;&gt;
+        <property name="unauthorizedUrl" value="/error/403.jsp" />
+        <property name="filters">
+            <map>
+                <entry key="auth" value-ref="userFilter"/>
+                <entry key="login" value-ref="loginFilter"/>
+                <entry key="clean" value-ref="cleanFilter"/>
+            </map>
+        </property>
+        <property name="filterChainDefinitions">
+            <value>
+                /error/*= anon
+                /user/index.html = login
+                /user/user/logout.html = logout
+                /user/user/admin.html = roles[manager]
+                /article/index* = perms[WZGL:CX]
+                /article/add* = perms[WZGL:XZ]
+                /article/edit* = perms[WZGL:BJ]
+                /**/*.htm* = auth
+                /**/*.json* = auth
+            </value>
+        </property>
+    </bean>
+
+    <bean id="userFilter" class="cn.zifangsky.security.CustomUserFilter">
+        <property name="ignoreList">
+            <list>
+                <value>/user/user/login.html</value>
+                <value>/user/user/check.json</value>
+                <value>/user/user/verify.html</value>
+                <value>/user/user/checkVerifyCode.json</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="loginFilter" class="cn.zifangsky.security.LoginFilter"/>
+    <bean id="cleanFilter" class="cn.zifangsky.security.CleanFilter"/>
+    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+-->
+</beans>

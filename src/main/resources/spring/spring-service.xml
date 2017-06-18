@@ -11,15 +11,19 @@
     http://www.springframework.org/schema/tx/spring-tx.xsd">
 
     <!-- 扫描service包下所有使用注解的类型 -->
-    <context:component-scan base-package="com.maxwell.learning.service" />
+    <context:component-scan base-package="com.maxwell.learning.modules.*.service"/>
 
-    <!-- 配置事务管理器 -->
+
+    <!--注入spring获取bean的工具类的bean-->
+    <bean id="springContextHolder" class="com.maxwell.learning.common.utils.SpringContextHolder"/>
+
+    <!-- 配置事务管理器：为什么要在这里配？因为使用注解是写在service层的实现类上，在这里配置更符合逻辑 -->
     <bean id="transactionManager"
           class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <!-- 注入数据库连接池 -->
-        <property name="dataSource" ref="dataSource" />
+        <property name="dataSource" ref="dataSource"/>
     </bean>
 
     <!-- 配置基于注解的声明式事务 -->
-    <tx:annotation-driven transaction-manager="transactionManager" />
+    <tx:annotation-driven transaction-manager="transactionManager"/>
 </beans>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seentao.datacenter.modules.bus.dao.ProdUserDao">
+    <resultMap id="BaseResultMap" type="ProdUser">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="mobile_phone" jdbcType="VARCHAR" property="mobilePhone"/>
+        <result column="real_name" jdbcType="VARCHAR" property="realName"/>
+        <result column="identity_card_no" jdbcType="VARCHAR" property="identityCardNo"/>
+        <result column="region_code" jdbcType="VARCHAR" property="regionCode"/>
+        <result column="industry_code" jdbcType="VARCHAR" property="industryCode"/>
+        <result column="customer_id" jdbcType="VARCHAR" property="customerId"/>
+        <result column="type" jdbcType="BIT" property="type"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, email, mobile_phone, real_name, identity_card_no, region_code, industry_code, customer_id, type
+    </sql>
+
+    <select id="get" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from prod_user
+        where id = #{id,jdbcType=VARCHAR}
+    </select>
+
+    <select id="getByProdUser" parameterType="ProdUser" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from prod_user
+        where id = #{id,jdbcType=VARCHAR}
+    </select>
+
+    <delete id="delete" parameterType="java.lang.String">
+        DELETE FROM prod_user
+        WHERE id = #{id,jdbcType=VARCHAR}
+    </delete>
+
+    <insert id="add" parameterType="ProdUser">
+        INSERT INTO prod_user (id, email, mobile_phone, real_name, identity_card_no,
+                               region_code, industry_code, customer_id,
+                               type)
+        VALUES (#{id,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{mobilePhone,jdbcType=VARCHAR},
+                #{realName,jdbcType=VARCHAR}, #{identityCardNo,jdbcType=VARCHAR},
+                #{regionCode,jdbcType=VARCHAR}, #{industryCode,jdbcType=VARCHAR}, #{customerId,jdbcType=VARCHAR},
+                #{type,jdbcType=BIT})
+    </insert>
+
+    <update id="update" parameterType="ProdUser">
+        update prod_user
+        <set>
+            <if test="email != null">
+                email = #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="mobilePhone != null">
+                mobile_phone = #{mobilePhone,jdbcType=VARCHAR},
+            </if>
+            <if test="realName != null">
+                real_name = #{realName,jdbcType=VARCHAR},
+            </if>
+            <if test="identityCardNo != null">
+                identity_card_no = #{identityCardNo,jdbcType=VARCHAR},
+            </if>
+            <if test="regionCode != null">
+                region_code = #{regionCode,jdbcType=VARCHAR},
+            </if>
+            <if test="industryCode != null">
+                industry_code = #{industryCode,jdbcType=VARCHAR},
+            </if>
+            <if test="customerId != null">
+                customer_id = #{customerId,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">
+                type = #{type,jdbcType=BIT},
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+
+</mapper>

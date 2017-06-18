@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seentao.datacenter.modules.bus.dao.ProdProductUserDao">
+    <resultMap id="BaseResultMap" type="ProdProductUser">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="origin_id" jdbcType="VARCHAR" property="originId"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="mobile_phone" jdbcType="VARCHAR" property="mobilePhone"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="register_date" jdbcType="TIMESTAMP" property="registerDate"/>
+        <result column="is_email_validate" jdbcType="BIT" property="isEmailValidate"/>
+        <result column="is_phone_validate" jdbcType="BIT" property="isPhoneValidate"/>
+        <result column="is_idcard_validate" jdbcType="BIT" property="isIdcardValidate"/>
+        <result column="is_paid" jdbcType="BIT" property="isPaid"/>
+        <result column="sort_key" jdbcType="VARCHAR" property="sortKey"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="terminal_type" jdbcType="CHAR" property="terminalType"/>
+        <result column="pay_time" jdbcType="TIMESTAMP" property="payTime"/>
+        <result column="pay_end_time" jdbcType="TIMESTAMP" property="payEndTime"/>
+        <result column="status" jdbcType="CHAR" property="status"/>
+        <result column="is_synchronized" jdbcType="BIT" property="isSynchronized"/>
+        <result column="product_id" jdbcType="VARCHAR" property="productId"/>
+        <result column="user_id" jdbcType="VARCHAR" property="userId"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, email, mobile_phone, origin_id, name, register_date, is_email_validate, is_phone_validate,
+        is_idcard_validate, is_paid, sort_key, password, terminal_type, pay_time, pay_end_time,
+        status, is_synchronized, product_id, user_id
+    </sql>
+
+    <select id="get" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from prod_product_user
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <delete id="delete" parameterType="java.lang.Integer">
+        DELETE FROM prod_product_user
+        WHERE id = #{id,jdbcType=INTEGER}
+    </delete>
+
+    <insert id="add" parameterType="ProdProductUser" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO prod_product_user (origin_id, email, mobile_phone, name,
+                                       register_date,
+                                       is_email_validate, is_phone_validate, is_idcard_validate,
+                                       is_paid, sort_key, password,
+                                       terminal_type, pay_time, pay_end_time,
+                                       status, is_synchronized, product_id,
+                                       user_id)
+        VALUES (#{originId,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{mobilePhone,jdbcType=VARCHAR},
+                                              #{name,jdbcType=VARCHAR},
+                                              #{registerDate,jdbcType=TIMESTAMP},
+                                              #{isEmailValidate,jdbcType=BIT}, #{isPhoneValidate,jdbcType=BIT},
+                                              #{isIdcardValidate,jdbcType=BIT},
+                                              #{isPaid,jdbcType=BIT}, #{sortKey,jdbcType=VARCHAR},
+                                              #{password,jdbcType=VARCHAR},
+                #{terminalType,jdbcType=CHAR}, #{payTime,jdbcType=TIMESTAMP},
+                #{payEndTime,jdbcType=TIMESTAMP},
+                #{status,jdbcType=CHAR}, #{isSynchronized,jdbcType=BIT}, #{productId,jdbcType=VARCHAR},
+                #{userId,jdbcType=VARCHAR})
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="ProdProductUser">
+        update prod_product_user
+        <set>
+            <if test="originId != null">
+                origi_id = #{originId,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                email = #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="mobilePhone != null">
+                mobile_phone = #{mobilePhone,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="registerDate != null">
+                register_date = #{registerDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="isEmailValidate != null">
+                is_email_validate = #{isEmailValidate,jdbcType=BIT},
+            </if>
+            <if test="isPhoneValidate != null">
+                is_phone_validate = #{isPhoneValidate,jdbcType=BIT},
+            </if>
+            <if test="isIdcardValidate != null">
+                is_idcard_validate = #{isIdcardValidate,jdbcType=BIT},
+            </if>
+            <if test="isPaid != null">
+                is_paid = #{isPaid,jdbcType=BIT},
+            </if>
+            <if test="sortKey != null">
+                sort_key = #{sortKey,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                password = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="terminalType != null">
+                terminal_type = #{terminalType,jdbcType=CHAR},
+            </if>
+            <if test="payTime != null">
+                pay_time = #{payTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="payEndTime != null">
+                pay_end_time = #{payEndTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=CHAR},
+            </if>
+            <if test="isSynchronized != null">
+                is_synchronized = #{isSynchronized,jdbcType=BIT},
+            </if>
+            <if test="productId != null">
+                product_id = #{productId,jdbcType=VARCHAR},
+            </if>
+            <if test="userBaseId != null">
+                user_id = #{userId,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+</mapper>

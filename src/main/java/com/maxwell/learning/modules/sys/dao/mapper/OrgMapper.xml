@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seentao.datacenter.modules.sys.dao.OrgDao">
+  <resultMap id="BaseResultMap" type="Org">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="parent_id" jdbcType="VARCHAR" property="parentId" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="leader_id" jdbcType="VARCHAR" property="leaderId" />
+    <result column="auth_certificate" jdbcType="VARCHAR" property="authCertificate" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, name, type, parent_id, status, leader_id, auth_certificate
+  </sql>
+
+  <select id="get" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_org
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="delete" parameterType="java.lang.String">
+    delete from sys_org
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+
+  <insert id="insert" parameterType="Org">
+    insert into sys_org (id, name, type,
+      parent_id, status,
+      leader_id, leader_name, auth_certificate
+      )
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER},
+      #{parentId,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER},
+      #{leaderId,jdbcType=VARCHAR}, #{authCertificate,jdbcType=VARCHAR}
+      )
+  </insert>
+
+  <update id="update" parameterType="Org">
+    update sys_org
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="parentId != null">
+        parent_id = #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="leaderId != null">
+        leader_id = #{leaderId,jdbcType=VARCHAR},
+      </if>
+      <if test="authCertificate != null">
+        auth_certificate = #{authCertificate,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+</mapper>

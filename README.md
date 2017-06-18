@@ -23,3 +23,15 @@ IDE：Intellij IDEA 2016
 
 ## 注意的地方
 * classpath是什么？文件中classpath与classpath*的区别
+
+
+---
+## 目录说明
+ * doc
+ 存放一些文档，如接口文档等
+ * db
+ 存放临时的数据库的相关文件
+ * profile
+ 存放生产环境、测试环境、正式环境的配置文件；请务必与resources下的配置文件同名，以保证在maven打包时可以正确替换其中的配置文件
+ * src
+ 项目主目录，代码均在此

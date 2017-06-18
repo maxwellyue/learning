@@ -5,6 +5,12 @@
 <configuration>
     <!-- 配置全局属性 -->
     <settings>
+
+        <!-- 全局映射器启用缓存：该值默认为true
+         这里的启用缓存是指二级缓存，即mapper级别的缓存。mybatis默认开启一级缓存：sqlSession级别
+         -->
+        <setting name="cacheEnabled" value="true" />
+
         <!-- 使用jdbc的getGeneratedKeys获取数据库自增主键值 -->
         <setting name="useGeneratedKeys" value="true" />
 
@@ -14,4 +20,16 @@
         <!-- 开启驼峰命名转换:Table{create_time} -> Entity{createTime} -->
         <setting name="mapUnderscoreToCamelCase" value="true" />
     </settings>
+
+    <!-- 单独配置Page的类型别名 -->
+    <typeAliases>
+        <typeAlias alias="Page" type="com.maxwell.learning.common.dao.Page" /><!--分页  -->
+    </typeAliases>
+
+    <!-- 分页插件配置 -->
+    <plugins>
+        <plugin interceptor="com.maxwell.learning.common.dao.interceptor.PaginationInterceptor" />
+    </plugins>
+
+
 </configuration>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seentao.datacenter.modules.bus.dao.ProductCustomerDao">
+  <resultMap id="BaseResultMap" type="ProductCustomer">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="originId" jdbcType="VARCHAR" property="origin_id" />
+    <result column="customer_id" jdbcType="VARCHAR" property="customerId" />
+    <result column="product_id" jdbcType="VARCHAR" property="productId" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, origin_id, customer_id, product_id, create_date
+  </sql>
+
+  <select id="get" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from prod_product_customer
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="delete" parameterType="java.lang.Integer">
+    delete from prod_product_customer
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="add" parameterType="ProductCustomer" useGeneratedKeys="true" keyProperty="id">
+    insert into prod_product_customer (origin_id, customer_id,
+      product_id, create_date)
+    values (#{originId,jdbcType=VARCHAR}, #{customerId,jdbcType=VARCHAR},
+      #{productId,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP})
+  </insert>
+
+</mapper>

@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seentao.datacenter.modules.bus.dao.OrderDao">
+  <resultMap id="BaseResultMap" type="Order">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="origin_id" jdbcType="VARCHAR" property="originId" />
+    <result column="customer_id" jdbcType="VARCHAR" property="customerId" />
+    <result column="customer_name" jdbcType="VARCHAR" property="customerName" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="pay_time" jdbcType="TIMESTAMP" property="payTime" />
+    <result column="auth_start_time" jdbcType="TIMESTAMP" property="authStartTime" />
+    <result column="auth_end_time" jdbcType="TIMESTAMP" property="authEndTime" />
+    <result column="server_dead" jdbcType="INTEGER" property="serverDead" />
+    <result column="region" jdbcType="VARCHAR" property="region" />
+    <result column="industry" jdbcType="VARCHAR" property="industry" />
+    <result column="product_code" jdbcType="VARCHAR" property="productCode" />
+    <result column="order_amount" jdbcType="VARCHAR" property="orderAmount" />
+    <result column="paid_amount" jdbcType="VARCHAR" property="paidAmount" />
+    <result column="rebate" jdbcType="VARCHAR" property="rebate" />
+    <result column="favor_amount" jdbcType="VARCHAR" property="favorAmount" />
+    <result column="auth_user_count" jdbcType="INTEGER" property="authUserCount" />
+    <result column="server_code" jdbcType="VARCHAR" property="serverCode" />
+    <result column="server_name" jdbcType="VARCHAR" property="serverName" />
+    <result column="status" jdbcType="BIT" property="status" />
+    <result column="business_type" jdbcType="VARCHAR" property="businessType" />
+    <result column="sale_dept_id" jdbcType="VARCHAR" property="saleDeptId" />
+    <result column="sale_org_id" jdbcType="VARCHAR" property="saleOrgId" />
+    <result column="sign_time" jdbcType="TIMESTAMP" property="signTime" />
+    <result column="pay_customer_id" jdbcType="VARCHAR" property="payCustomerId" />
+    <result column="use_customer_id" jdbcType="VARCHAR" property="useCustomerId" />
+    <result column="drawer_customer_id" jdbcType="INTEGER" property="drawerCustomerId" />
+    <result column="common_status" jdbcType="BIT" property="commonStatus" />
+    <result column="is_synchronized" jdbcType="BIT" property="isSynchronized" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, origin_id, customer_id, customer_name, create_time, pay_time, auth_start_time, auth_end_time,
+    server_dead, region, industry, product_code, order_amount, paid_amount, rebate, favor_amount, 
+    auth_user_count, server_code, server_name, status, business_type, sale_dept_id, sale_org_id, 
+    sign_time, pay_customer_id, use_customer_id, drawer_customer_id, common_status, is_synchronized
+  </sql>
+
+  <select id="get" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from prod_order
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="delete" parameterType="java.lang.String">
+    delete from prod_order
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+
+  <insert id="insert" parameterType="Order">
+    insert into prod_order (id, origin_id, customer_id, customer_name,
+      create_time, pay_time, auth_start_time, 
+      auth_end_time, server_dead, region, 
+      industry, product_code, order_amount, 
+      paid_amount, rebate, favor_amount, 
+      auth_user_count, server_code, server_name, 
+      status, business_type, sale_dept_id, 
+      sale_org_id, sign_time, pay_customer_id, 
+      use_customer_id, drawer_customer_id, common_status, 
+      is_synchronized)
+    values (#{id,jdbcType=VARCHAR}, #{originId}, #{customerId,jdbcType=VARCHAR}, #{customerName,jdbcType=VARCHAR},
+      #{createTime,jdbcType=TIMESTAMP}, #{payTime,jdbcType=TIMESTAMP}, #{authStartTime,jdbcType=TIMESTAMP}, 
+      #{authEndTime,jdbcType=TIMESTAMP}, #{serverDead,jdbcType=INTEGER}, #{region,jdbcType=VARCHAR}, 
+      #{industry,jdbcType=VARCHAR}, #{productCode,jdbcType=VARCHAR}, #{orderAmount,jdbcType=VARCHAR}, 
+      #{paidAmount,jdbcType=VARCHAR}, #{rebate,jdbcType=VARCHAR}, #{favorAmount,jdbcType=VARCHAR}, 
+      #{authUserCount,jdbcType=INTEGER}, #{serverCode,jdbcType=VARCHAR}, #{serverName,jdbcType=VARCHAR}, 
+      #{status,jdbcType=BIT}, #{businessType,jdbcType=VARCHAR}, #{saleDeptId,jdbcType=VARCHAR}, 
+      #{saleOrgId,jdbcType=VARCHAR}, #{signTime,jdbcType=TIMESTAMP}, #{payCustomerId,jdbcType=VARCHAR}, 
+      #{useCustomerId,jdbcType=VARCHAR}, #{drawerCustomerId,jdbcType=INTEGER}, #{commonStatus,jdbcType=BIT}, 
+      #{isSynchronized,jdbcType=BIT})
+  </insert>
+
+  <update id="update" parameterType="Order">
+    update prod_order
+    <set>
+      <if test="customerId != null">
+        customer_id = #{customerId,jdbcType=VARCHAR},
+      </if>
+      <if test="originId != null">
+        origin_id = #{originId,jdbcType=VARCHAR},
+      </if>
+      <if test="customerName != null">
+        customer_name = #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payTime != null">
+        pay_time = #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="authStartTime != null">
+        auth_start_time = #{authStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="authEndTime != null">
+        auth_end_time = #{authEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="serverDead != null">
+        server_dead = #{serverDead,jdbcType=INTEGER},
+      </if>
+      <if test="region != null">
+        region = #{region,jdbcType=VARCHAR},
+      </if>
+      <if test="industry != null">
+        industry = #{industry,jdbcType=VARCHAR},
+      </if>
+      <if test="productCode != null">
+        product_code = #{productCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orderAmount != null">
+        order_amount = #{orderAmount,jdbcType=VARCHAR},
+      </if>
+      <if test="paidAmount != null">
+        paid_amount = #{paidAmount,jdbcType=VARCHAR},
+      </if>
+      <if test="rebate != null">
+        rebate = #{rebate,jdbcType=VARCHAR},
+      </if>
+      <if test="favorAmount != null">
+        favor_amount = #{favorAmount,jdbcType=VARCHAR},
+      </if>
+      <if test="authUserCount != null">
+        auth_user_count = #{authUserCount,jdbcType=INTEGER},
+      </if>
+      <if test="serverCode != null">
+        server_code = #{serverCode,jdbcType=VARCHAR},
+      </if>
+      <if test="serverName != null">
+        server_name = #{serverName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=BIT},
+      </if>
+      <if test="businessType != null">
+        business_type = #{businessType,jdbcType=VARCHAR},
+      </if>
+      <if test="saleDeptId != null">
+        sale_dept_id = #{saleDeptId,jdbcType=VARCHAR},
+      </if>
+      <if test="saleOrgId != null">
+        sale_org_id = #{saleOrgId,jdbcType=VARCHAR},
+      </if>
+      <if test="signTime != null">
+        sign_time = #{signTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payCustomerId != null">
+        pay_customer_id = #{payCustomerId,jdbcType=VARCHAR},
+      </if>
+      <if test="useCustomerId != null">
+        use_customer_id = #{useCustomerId,jdbcType=VARCHAR},
+      </if>
+      <if test="drawerCustomerId != null">
+        drawer_customer_id = #{drawerCustomerId,jdbcType=INTEGER},
+      </if>
+      <if test="commonStatus != null">
+        common_status = #{commonStatus,jdbcType=BIT},
+      </if>
+      <if test="isSynchronized != null">
+        is_synchronized = #{isSynchronized,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
